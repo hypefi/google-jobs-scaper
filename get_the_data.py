@@ -51,7 +51,12 @@ def manually_get_job_data(job_name):
             print(job_dic['company'])
             job_dic['description']=job.find('span',{'class':'HBvzbc'}).text
             print(job_dic['description'])
-            job_dic['location']=job.find_all('div',{'class':'sMzDkb'})[1].text
+            try:
+                    job_dic['location']=job.find_all('div',{'class':'sMzDkb'})[1].text
+            except:
+                    print("Something went wrong in fetching location")
+                    job_dic['location']='Remote'
+                    pass
             print(job_dic['location'])
             #url 
             print(job.find('a',{'class':'pMhGee Co68jc j0vryd'}))
@@ -63,7 +68,10 @@ def manually_get_job_data(job_name):
             job_dic['createdAt'] = datetime.datetime.now().isoformat()
             job_dic['upDatedAt'] = datetime.datetime.now().isoformat()
             #html description
-            job_dic['htmldescription']=job.find('span',{'class':'HBvzbc'}).text
+            print(type(job.find('span',{'class':'HBvzbc'})))
+            job_dic['htmlDescription']=str(job.find('span',{'class':'HBvzbc'}))
+            
+            print('htmldescription',job_dic['htmlDescription'])
             #userid 
             job_dic['userId'] = 'qRofzWAQpCqJp9kXC'
             #jobtype
@@ -74,7 +82,7 @@ def manually_get_job_data(job_name):
    
             #htmlDescription
             job_list.append(job_dic)
-    print(job_list)
+ #   print(job_list)
     
     
     ##save to json file 
